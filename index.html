@@ -483,7 +483,7 @@ legend { margin-bottom: 10px; }
 
 
   /* Arriving from another page with #section */
-  const goHash = () => { const id = location.hash.slice(1); const p = id && document.getElementById(id); if (!p || !p.classList.contains('panel')) return; const top = narrow.matches ? p.getBoundingClientRect().top + scrollY - 64 : hs.offsetTop + Math.min(maxX, p.offsetLeft); scrollTo({ top, behavior: 'auto' }); };
+  const goHash = () => { const id = location.hash.slice(1); const p = id && document.getElementById(id); if (!p || !p.classList.contains('panel')) return; const top = narrow.matches ? p.getBoundingClientRect().top + scrollY - 64 : hs.offsetTop + Math.min(maxX, p.offsetLeft); scrollTo({ top, behavior: 'auto' }); update(); };
   addEventListener('load', () => setTimeout(goHash, 50));
 
   document.addEventListener('click', e => {
