@@ -175,14 +175,23 @@ legend { margin-bottom: 10px; }
 .meaning strong { font-weight: 500; color: var(--ink); }
 
 /* Intro: the logo set, pages 1 to 4 */
-.intro { position: fixed; inset: 0; z-index: 200; background: var(--paper); display: grid; place-items: center; cursor: pointer; overflow: hidden; transition: opacity 1s ease, visibility 1s; }
-.intro.gone { opacity: 0; visibility: hidden; }
-.intro .rule { transform-box: fill-box; transform-origin: left; animation: draw 2.6s cubic-bezier(.45,0,.55,1) both, fade 1s ease 4.1s forwards; }
+.intro { position: fixed; inset: 0; z-index: 200; background-color: var(--paper); display: grid; place-items: center; cursor: pointer; overflow: hidden; transition: background-color 1.1s ease; }
+.intro.gone { visibility: hidden; }
+.intro svg { transform-origin: 0 0; transition: transform 1.1s cubic-bezier(.65,0,.35,1); }
+.intro.reveal { background-color: transparent; pointer-events: none; }
+.intro.tagout .tag, .intro.reveal .tag { animation: tagout .3s ease forwards; }
+.intro.reveal .skip { opacity: 0; transition: opacity .3s; }
+.intro.fast, .intro.fast svg { transition-duration: .45s; }
+.intro.fast .lt { animation: none; opacity: 1; }
+.intro.fast .rule { animation: none; opacity: 0; }
+@keyframes tagout { from { opacity: 1; } to { opacity: 0; } }
+body.intro-on .brand svg { visibility: hidden; }
+.intro .rule { transform-box: fill-box; transform-origin: left; animation: draw 2.6s cubic-bezier(.45,0,.55,1) both, fade .8s ease 3.6s forwards; }
 .intro svg { position: relative; width: min(70vw, 980px); height: auto; fill: var(--ink); overflow: visible; }
 .intro .lt { opacity: 0; animation: letter .8s cubic-bezier(.2,.7,.2,1) forwards; animation-delay: calc(1.3s + var(--i) * .15s); }
 @keyframes letter { from { opacity: 0; } to { opacity: 1; } }
 @keyframes fade { to { opacity: 0; } }
-.intro .tag { position: absolute; left: 0; right: 0; top: calc(50% + min(7vw, 98px)); text-align: center; font-size: 14px; font-weight: 300; color: var(--muted); opacity: 0; animation: letter .9s ease 4.4s forwards; }
+.intro .tag { position: absolute; left: 0; right: 0; top: calc(50% + min(7vw, 98px)); text-align: center; font-size: 14px; font-weight: 300; color: var(--muted); opacity: 0; animation: letter .7s ease 3.9s forwards; }
 .intro .skip { position: absolute; right: max(28px, var(--gr)); bottom: calc(24px + env(safe-area-inset-bottom, 0px)); font-size: 13px; font-weight: 300; color: var(--muted); background: none; border: 0; cursor: pointer; font-family: var(--sans); }
 @media (prefers-reduced-motion: reduce) { .intro { display: none; } .p-open .under { animation: none; } }
 
@@ -238,7 +247,7 @@ legend { margin-bottom: 10px; }
   .pair > * { position: relative !important; left: auto !important; top: auto !important; bottom: auto !important; }
   .meaning { position: static !important; }
   .intro svg { width: 86vw; }
-  .intro .rule { transform-box: fill-box; transform-origin: left; animation: draw 2.6s cubic-bezier(.45,0,.55,1) both, fade 1s ease 4.1s forwards; }
+  .intro .rule { transform-box: fill-box; transform-origin: left; animation: draw 2.6s cubic-bezier(.45,0,.55,1) both, fade .8s ease 3.6s forwards; }
   .film { height: auto !important; }
   .brand { width: 124px; }
   .hs { height: auto !important; padding-top: calc(var(--top) + env(safe-area-inset-top, 0px)); }
@@ -501,13 +510,28 @@ legend { margin-bottom: 10px; }
   try { seen = sessionStorage.getItem('bdln-intro') === '1'; } catch (e) {}
   if (!seen && !reduce && !location.hash) {
     intro.hidden = false;
-    document.documentElement.style.setProperty('--after-intro', '6.6s');
-    const end = () => { if (intro.classList.contains('gone')) return; intro.classList.add('gone'); try { sessionStorage.setItem('bdln-intro', '1'); } catch (e) {} };
-    const t = setTimeout(end, 6000);
-    intro.addEventListener('click', () => { clearTimeout(t); document.documentElement.style.setProperty('--after-intro', '0s'); end(); });
-    addEventListener('keydown', function k() { clearTimeout(t); end(); removeEventListener('keydown', k); });
+    document.body.classList.add('intro-on');
+    document.documentElement.style.setProperty('--after-intro', '6.5s');
+    const mark = intro.querySelector('svg'), brandMark = document.querySelector('.brand svg');
+    const timers = []; let done = false;
+    /* The intro wordmark glides into the top-bar logo while the paper fades away */
+    const glide = fast => {
+      if (done) return; done = true; timers.forEach(clearTimeout);
+      if (fast) intro.classList.add('fast');
+      const a = mark.getBoundingClientRect(), b = brandMark.getBoundingClientRect();
+      mark.style.transform = `translate(${b.left - a.left}px, ${b.top - a.top}px) scale(${b.width / a.width})`;
+      intro.classList.add('reveal');
+      setTimeout(() => {
+        document.body.classList.remove('intro-on'); intro.classList.add('gone');
+        try { sessionStorage.setItem('bdln-intro', '1'); } catch (e) {}
+      }, fast ? 480 : 1130);
+    };
+    timers.push(setTimeout(() => intro.classList.add('tagout'), 5100));
+    timers.push(setTimeout(() => glide(false), 5400));
+    const skip = () => { if (done) return; document.documentElement.style.setProperty('--after-intro', '.5s'); glide(true); };
+    intro.addEventListener('click', skip);
+    addEventListener('keydown', function k() { skip(); removeEventListener('keydown', k); });
   }
-
 
   /* 360 tour and film popups */
   const MEDIA = {
