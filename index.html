@@ -318,7 +318,7 @@ body.intro-on .brand svg { visibility: hidden; }
       <span class="vline" id="vline"><i></i></span>
 
       <section class="panel p-open" id="open" aria-label="Opening">
-        <img src="img/hero/hero-poster.webp" alt="Pool deck at sunset, from the studio showreel">
+        <img src="img/hero/hero-poster.webp?v=2" alt="Pool deck at sunset, from the studio showreel">
         <video class="hero-vid" id="heroVid" muted loop playsinline preload="none" aria-hidden="true"></video>
         <div class="cap"><h1 class="say"><strong>Clarity</strong> through visualization</h1></div>
         <span class="under" aria-hidden="true"></span>
@@ -513,7 +513,7 @@ body.intro-on .brand svg { visibility: hidden; }
   const vid = document.getElementById('heroVid');
   const saveData = !!(navigator.connection && navigator.connection.saveData);
   if (vid && !reduce && !saveData) {
-    vid.src = matchMedia('(max-width: 900px)').matches ? 'img/hero/hero-720.mp4' : 'img/hero/hero-1080.mp4';
+    vid.src = matchMedia('(max-width: 900px)').matches ? 'img/hero/hero-720.mp4?v=2' : 'img/hero/hero-1080.mp4?v=2';
     vid.addEventListener('playing', () => vid.classList.add('on'), { once: true });
     const p = vid.play(); if (p && p.catch) p.catch(() => {});
   }
