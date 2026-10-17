@@ -80,7 +80,9 @@ p, h1, h2, figure { margin: 0; }
 
 /* 1. Opening */
 .p-open { width: calc(100vw - 56px); margin-left: 28px; overflow: hidden; }
-.p-open > img { width: 100%; height: 100%; object-fit: cover; }
+.p-open > img, .p-open > video { width: 100%; height: 100%; object-fit: cover; }
+.p-open > video { position: absolute; inset: 0; opacity: 0; transition: opacity .8s ease; }
+.p-open > video.on { opacity: 1; }
 .p-open::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 30%, rgba(14,12,10,.38) 52%, rgba(14,12,10,.5) 100%); pointer-events: none; }
 .p-open .cap { position: absolute; z-index: 2; left: clamp(24px, 3vw, 48px); bottom: calc(var(--stand) + 20px); color: #fff; display: grid; gap: 8px; }
 .p-open .cap .say { font-size: clamp(30px, 3.2vw, 52px); }
@@ -259,7 +261,7 @@ body.intro-on .brand svg { visibility: hidden; }
   .panel > *, .p-open .cap, .p-open .sub { position: static !important; width: auto !important; height: auto !important; left: auto; right: auto; top: auto; bottom: auto; }
   .pin { order: -2; }
   .p-open { padding: 0; height: 82svh !important; min-height: 460px; display: block; }
-  .p-open > img { height: 100% !important; }
+  .p-open > img, .p-open > video { height: 100% !important; }
   .p-open .cap { position: absolute !important; bottom: 56px; left: 20px; }
   .p-open .sub { position: absolute !important; bottom: 24px; left: 20px; }
   .clay { aspect-ratio: 4 / 5; width: 100% !important; }
@@ -315,7 +317,8 @@ body.intro-on .brand svg { visibility: hidden; }
       <span class="vline" id="vline"><i></i></span>
 
       <section class="panel p-open" id="open" aria-label="Opening">
-        <img src="img/work/full/commercial-36.webp" alt="Placeholder render of a waterfront campus at dusk">
+        <img src="img/hero/hero-poster.webp" alt="Pool deck at sunset, from the studio showreel">
+        <video class="hero-vid" id="heroVid" muted loop playsinline preload="none" aria-hidden="true"></video>
         <div class="cap"><h1 class="say"><strong>Clarity</strong> through visualization</h1></div>
         <span class="under" aria-hidden="true"></span>
         <p class="sub">Architectural visualization studio · Bekasi, Indonesia</p>
@@ -503,6 +506,16 @@ body.intro-on .brand svg { visibility: hidden; }
     scrollTo({ top, behavior: reduce ? 'auto' : 'smooth' });
   });
 
+
+
+  /* Hero showreel: 1080p on wide screens, 720p on phones; the still stays for reduced motion or data saver */
+  const vid = document.getElementById('heroVid');
+  const saveData = !!(navigator.connection && navigator.connection.saveData);
+  if (vid && !reduce && !saveData) {
+    vid.src = matchMedia('(max-width: 900px)').matches ? 'img/hero/hero-720.mp4' : 'img/hero/hero-1080.mp4';
+    vid.addEventListener('playing', () => vid.classList.add('on'), { once: true });
+    const p = vid.play(); if (p && p.catch) p.catch(() => {});
+  }
 
   /* Intro, once per browser session; skipped for reduced motion */
   const intro = document.getElementById('intro');
