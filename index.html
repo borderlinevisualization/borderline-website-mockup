@@ -153,7 +153,11 @@ p, h1, h2, figure { margin: 0; }
 .p-contact .write { position: absolute; left: 6vw; top: calc(var(--ly) + 32px); display: flex; gap: 4vw; flex-wrap: wrap; }
 .big { display: grid; gap: 4px; }
 .big span { font-size: 13px; color: var(--on-char-muted); }
-.big b { font-weight: 200; font-size: clamp(20px, 1.8vw, 30px); user-select: all; }
+.big b { font-weight: 200; font-size: clamp(20px, 1.8vw, 30px); overflow-wrap: anywhere; }
+.big a { color: inherit; text-decoration: none; }
+.big a:hover { text-decoration: underline; text-underline-offset: 5px; text-decoration-thickness: 1px; }
+.hp { position: absolute !important; left: -10000px !important; width: 1px; height: 1px; overflow: hidden; }
+.status a { color: inherit; }
 form { position: absolute; left: 62vw; right: 6vw; top: 9%; display: grid; grid-template-columns: 1fr 1fr; gap: 20px 24px; }
 fieldset { grid-column: 1 / -1; border: 0; margin: 0; padding: 0; }
 legend, form label { font-size: 13px; color: var(--on-char-muted); padding: 0; }
@@ -400,25 +404,25 @@ body.intro-on .brand svg { visibility: hidden; }
       <section class="panel p-contact" id="contact" aria-labelledby="l-contact">
         <p class="label pin">Contact</p>
         <h2 class="say invite" id="l-contact"><span class="ln">Show us your project</span> <span class="ln">Let’s bring your <strong>vision into focus</strong></span></h2>
-        <!-- Placeholders: replace with real contact details -->
         <div class="write">
-          <div class="big"><span>Write to us</span><b>hello@example.com</b></div>
+          <div class="big"><span>Write to us</span><b><a href="mailto:hello.this.is.borderline@gmail.com">hello.this.is.borderline@gmail.com</a></b></div>
           <a class="chat" href="https://wa.me/6281391654607" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.2-.3-.2-.5-.3Z"/></svg><span>WhatsApp</span></a>
         </div>
         <form id="contactForm" novalidate>
           <fieldset>
             <legend>What are you looking for?</legend>
             <div class="chips">
-              <input type="checkbox" id="s-still"><label for="s-still">Still images</label>
-              <input type="checkbox" id="s-360"><label for="s-360">360° virtual tour</label>
-              <input type="checkbox" id="s-anim"><label for="s-anim">Animation</label>
-              <input type="checkbox" id="s-unsure"><label for="s-unsure">Not sure yet</label>
+              <input type="checkbox" id="s-still" value="Still images"><label for="s-still">Still images</label>
+              <input type="checkbox" id="s-360" value="360° virtual tour"><label for="s-360">360° virtual tour</label>
+              <input type="checkbox" id="s-anim" value="Animation"><label for="s-anim">Animation</label>
+              <input type="checkbox" id="s-unsure" value="Not sure yet"><label for="s-unsure">Not sure yet</label>
             </div>
           </fieldset>
           <div class="field"><label for="f-name">Name</label><input id="f-name" required autocomplete="name"></div>
           <div class="field"><label for="f-company">Company</label><input id="f-company" autocomplete="organization"></div>
           <div class="field full"><label for="f-email">Email</label><input id="f-email" type="email" required autocomplete="email"></div>
           <div class="field full"><label for="f-msg">Tell us about your project</label><textarea id="f-msg" required placeholder="Project type, location, scope, and timeline"></textarea></div>
+          <div class="hp" aria-hidden="true"><label for="f-web">Website</label><input id="f-web" tabindex="-1" autocomplete="off"></div>
           <div class="send"><button type="submit">Send your project brief</button><p class="status" id="formStatus" role="status"></p></div>
         </form>
         <div class="legal"><span>© 2026 Borderline Visualization · Bekasi, Indonesia</span><a href="https://www.instagram.com/borderline.viz/" target="_blank" rel="noopener">Instagram</a></div>
@@ -585,10 +589,35 @@ body.intro-on .brand svg { visibility: hidden; }
   addEventListener('keydown', e => { if (e.key === 'Escape' && !pop.hidden) closeMedia(); });
 
   const form = document.getElementById('contactForm'), status = document.getElementById('formStatus');
-  form.addEventListener('submit', e => {
+  // Brief form → Google Apps Script web app (writes to the studio's Google Sheet and emails a notification).
+  // Paste the web app URL (ends in /exec) below. Empty = preview mode, nothing is sent.
+  const FORM_ENDPOINT = '';
+  const opened = Date.now();
+  const btn = form.querySelector('.send button'), btnText = btn.textContent;
+  const v = id => document.getElementById(id).value.trim();
+  const fail = 'Something went wrong. Please try again, or reach us on <a href="https://wa.me/6281391654607" target="_blank" rel="noopener">WhatsApp</a>.';
+  form.addEventListener('submit', async e => {
     e.preventDefault();
     if (!form.checkValidity()) { status.textContent = 'Please fill in your name, email and the project details.'; form.querySelector(':invalid').focus(); return; }
-    status.textContent = 'Preview only: this form is not connected yet, so nothing was sent.';
+    if (!FORM_ENDPOINT) { status.textContent = 'Preview only: this form is not connected yet, so nothing was sent.'; return; }
+    const data = {
+      name: v('f-name'), company: v('f-company'), email: v('f-email'), message: v('f-msg'),
+      services: [...form.querySelectorAll('.chips input:checked')].map(i => i.value),
+      website: v('f-web'), elapsed: Date.now() - opened, page: location.href
+    };
+    btn.disabled = true; btn.textContent = 'Sending…'; status.textContent = '';
+    try {
+      // A plain-text body keeps this a "simple" request, so the browser sends no CORS preflight.
+      const res = await fetch(FORM_ENDPOINT, { method: 'POST', body: JSON.stringify(data) });
+      const out = await res.json();
+      if (!out.ok) throw new Error(out.error || 'rejected');
+      form.reset();
+      status.textContent = 'Thank you. Your brief has been sent, and we will be in touch soon.';
+    } catch (err) {
+      status.innerHTML = fail;
+    } finally {
+      btn.disabled = false; btn.textContent = btnText;
+    }
   });
 })();
 </script>
