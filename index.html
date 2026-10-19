@@ -109,6 +109,7 @@ p, h1, h2, figure { margin: 0; }
 .support { font-size: clamp(15px, 1.05vw, 18px); font-weight: 300; line-height: 1.55; color: var(--muted); max-width: 40ch; margin: 0; text-wrap: pretty; }
 .support strong { font-weight: 500; color: var(--ink); }
 .p-about .txt .support { margin-top: 18px; }
+.p-about .say .ln { display: block; }
 
 /* 4. Services: three heights on the line, like a skyline */
 .p-services { width: 96vw; }
@@ -269,8 +270,9 @@ body.intro-on .brand svg { visibility: hidden; }
   .p-open > video { position: absolute !important; inset: 0 !important; width: 100% !important; height: 100% !important; }
   .p-open .cap { position: absolute !important; bottom: 76px; left: 20px; right: 20px; }
   .p-open .sub { position: absolute !important; bottom: 24px; left: 20px; right: 20px; max-width: 34ch; line-height: 1.5; }
-  .clay { aspect-ratio: 4 / 5; width: 100% !important; }
-  .clay figcaption { position: static; margin-top: 10px; }
+  .clay { aspect-ratio: 3 / 2; width: 100% !important; height: auto !important; }
+  .clay figcaption { position: absolute; left: 0; right: auto; top: calc(100% + 10px); }
+  .p-about .pair { gap: 56px; }
   .p-about .hang { aspect-ratio: 3 / 2; width: 70% !important; justify-self: end; }
   .ground { display: none; }
   .p-approach { background: linear-gradient(180deg, var(--paper) 0 40%, var(--stone) 40% 100%); }
@@ -329,7 +331,7 @@ body.intro-on .brand svg { visibility: hidden; }
 
       <section class="panel p-about" id="about" aria-labelledby="l-about">
         <p class="label pin" id="l-about">About</p>
-        <div class="txt"><p class="say">Every project carries more than drawings: a purpose, an aspiration, and a <strong>sense of place</strong></p><p class="support">Through light, atmosphere, and detail, we bring these qualities into focus, making the design clear and its potential easy to imagine.</p></div>
+        <div class="txt"><p class="say"><span class="ln">More than drawings</span> <span class="ln"><strong>A sense of place</strong></span></p><p class="support">Every project carries a purpose and an aspiration. Through light, atmosphere, and detail, we bring its character into focus.</p></div>
         <p class="meaning"><strong>Borderline:</strong> the line between vision and reality</p>
         <div class="pair">
         <figure class="clay" id="clay">
@@ -346,7 +348,7 @@ body.intro-on .brand svg { visibility: hidden; }
         <p class="label pin" id="l-approach">Approach</p>
         <figure><img src="img/work/full/interior-21.webp" alt="Placeholder render" loading="lazy"></figure>
         <div class="txt">
-          <p class="say">We begin with the architecture, not the image</p><p class="support">Guided by design intent, we carefully shape each perspective to reveal what matters most, creating imagery that stays <strong>true to the design</strong> and communicates with clarity and purpose.</p>
+          <p class="say">We begin with the architecture, not the image</p><p class="support">Design intent guides every perspective — revealing what matters while staying <strong>true to the project</strong>.</p>
         </div>
       </section>
 
