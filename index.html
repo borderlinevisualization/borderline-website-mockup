@@ -109,7 +109,11 @@ p, h1, h2, figure { margin: 0; }
 .support { font-size: clamp(15px, 1.05vw, 18px); font-weight: 300; line-height: 1.55; color: var(--muted); max-width: 40ch; margin: 0; text-wrap: pretty; }
 .support strong { font-weight: 500; color: var(--ink); }
 .p-about .txt .support { margin-top: 18px; }
-.p-about .say .ln { display: block; }
+.p-about .say .ln { display: block; white-space: nowrap; }
+.p-about .txt { width: min(36vw, 600px); }
+.p-about .txt .support, .p-approach .support { max-width: 62ch; text-wrap: balance; }
+.p-about .meaning { max-width: 48ch; }
+@media (max-width: 900px) { .p-about .say .ln { white-space: normal; } }
 
 /* 4. Services: three heights on the line, like a skyline */
 .p-services { width: 96vw; }
