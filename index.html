@@ -105,6 +105,10 @@ p, h1, h2, figure { margin: 0; }
 .p-approach figure { position: absolute; left: 6vw; bottom: var(--stand); height: 56%; aspect-ratio: 5 / 4; }
 .p-approach .txt { position: absolute; left: 6vw; top: calc(var(--ly) + 32px); display: flex; align-items: baseline; gap: 4vw; flex-wrap: wrap; width: 70vw; }
 .p-approach .say { max-width: 34ch; }
+.p-approach .txt { flex-direction: column; align-items: flex-start; gap: 16px; }
+.support { font-size: clamp(15px, 1.05vw, 18px); font-weight: 300; line-height: 1.55; color: var(--muted); max-width: 40ch; margin: 0; text-wrap: pretty; }
+.support strong { font-weight: 500; color: var(--ink); }
+.p-about .txt .support { margin-top: 18px; }
 
 /* 4. Services: three heights on the line, like a skyline */
 .p-services { width: 96vw; }
@@ -263,8 +267,8 @@ body.intro-on .brand svg { visibility: hidden; }
   .p-open { padding: 0; height: 82svh !important; min-height: 460px; display: block; }
   .p-open > img, .p-open > video { height: 100% !important; }
   .p-open > video { position: absolute !important; inset: 0 !important; width: 100% !important; height: 100% !important; }
-  .p-open .cap { position: absolute !important; bottom: 56px; left: 20px; }
-  .p-open .sub { position: absolute !important; bottom: 24px; left: 20px; }
+  .p-open .cap { position: absolute !important; bottom: 76px; left: 20px; right: 20px; }
+  .p-open .sub { position: absolute !important; bottom: 24px; left: 20px; right: 20px; max-width: 34ch; line-height: 1.5; }
   .clay { aspect-ratio: 4 / 5; width: 100% !important; }
   .clay figcaption { position: static; margin-top: 10px; }
   .p-about .hang { aspect-ratio: 3 / 2; width: 70% !important; justify-self: end; }
@@ -288,12 +292,10 @@ body.intro-on .brand svg { visibility: hidden; }
 </style>
 </head>
 <body>
-
-
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="wm" viewBox="8150 14130 13400 1450"><path d="M8334.67 15502.18l0 -595.83 -122.85 0 0 -120.15 122.85 0 0 -590.24 393.08 0c97.8,0 181.01,34.47 250.25,103.7 69.55,69.87 104.63,153.39 104.63,250.88 0,108.67 -41.6,198.71 -124.81,270.43 62.09,28.88 111.46,72.03 148.41,129.16 37.57,58.69 56.51,122.96 56.51,192.82 0,99.35 -35.08,184.12 -104.63,253.66 -70.49,70.48 -154.63,105.57 -253.05,105.57l-470.39 0zm120.16 -715.98l272.92 0c64.27,0 119.54,-22.98 165.49,-68.93 46.26,-46.26 69.24,-101.84 69.24,-166.73 0,-64.58 -22.98,-119.85 -69.24,-165.49 -45.95,-45.95 -101.22,-68.93 -165.49,-68.93l-272.92 0 0 470.08zm0 595.82l350.23 0c65.51,0 121.71,-23.29 168.28,-69.86 46.27,-46.88 69.24,-103.08 69.24,-169.21 0,-64.89 -22.97,-120.78 -69.24,-167.36 -46.57,-46.26 -102.77,-69.24 -168.28,-69.24l-350.23 0 0 475.67z"/><path d="M10354.38 15515.83c-183.81,0 -340.6,-65.2 -470.38,-195.6 -130.41,-129.79 -195.61,-286.59 -195.61,-470.39 0,-183.5 65.2,-340.6 195.61,-471.01 129.78,-129.78 286.57,-194.67 470.38,-194.67 183.81,0 340.92,64.89 471.01,194.67 129.78,130.41 194.67,287.51 194.67,471.01 0,183.8 -64.89,340.6 -194.67,470.39 -130.09,130.4 -287.2,195.6 -471.01,195.6zm-0.16 -1211.51c-150.27,0 -278.81,53.1 -385.62,159.91 -91.41,91.4 -143.69,198.72 -156.87,321.97l1084.99 0c-13.18,-123.25 -65.47,-230.57 -156.87,-321.97 -106.81,-106.81 -235.35,-159.91 -385.63,-159.91zm-543.23 602.03c11.88,126.49 64.41,236.24 157.61,329.43 106.81,106.5 235.35,159.9 385.62,159.9 150.28,0 278.82,-53.4 385.63,-159.9 93.19,-93.19 145.73,-202.94 157.61,-329.43l-1086.47 0z"/><path d="M11606.87 14786.2l-122.85 0 0 120.15 122.85 0 0 594.9 120.16 0 0 -589.31 312.97 0 306.45 590.24 134.75 0 -312.04 -602.34c77,-20.5 140.03,-62.41 189.09,-125.44 50.61,-64.89 75.76,-138.17 75.76,-220.14 0,-98.73 -35.09,-183.18 -104.64,-252.73 -69.86,-70.48 -154,-105.57 -253.05,-105.57l-469.45 0 0 590.24zm120.16 5.59l0 -5.59 0 -470.08 349.29 0c65.52,0 121.71,23.29 168.29,69.86 46.26,46.89 69.24,102.77 69.24,168.28 0,65.52 -22.98,121.72 -69.24,168.29 -46.58,46.26 -102.77,69.24 -168.29,69.24l-349.29 0z"/><path d="M13038.98 14789l-123.78 0 0 120.15 123.78 0 0 593.03 321.04 0c180.08,0 334.08,-63.96 462.01,-191.88 127.61,-127.3 191.26,-280.99 191.26,-461.38 0,-180.08 -63.65,-333.78 -191.26,-461.08 -127.93,-127.91 -281.93,-191.88 -462.01,-191.88l-321.04 0 0 593.04zm119.23 120.15l0 -120.15 0 -473.81 201.81 0c147.48,0 273.23,52.16 377.55,156.48 104.33,104.33 156.49,230.08 156.49,377.25 0,147.48 -52.16,273.22 -156.49,377.55 -104.32,104.32 -230.07,156.48 -377.55,156.48l-201.81 0 0 -473.8z"/><path d="M14600.87,14195.96 L14600.87,14787.13 L14477.71,14787.13 L14477.71,14907.29 L14600.87,14907.29 L14600.87,15502.18 L15267.48,15502.18 L15267.48,15382.02 L14720.72,15382.02 L14720.72,14907.29 L15152.92,14907.29 L15152.92,14787.13 L14720.72,14787.13 L14720.72,14316.12 L15267.48,14316.12 L15267.48,14195.96Z"/><path d="M15854.14 14787.13l-122.85 0 0 120.16 122.85 0 0 593.96 120.16 0 0 -589.31 312.97 0 306.45 590.24 134.75 0 -312.04 -602.34c77,-20.5 140.03,-62.41 189.09,-125.44 50.61,-64.89 75.76,-138.17 75.76,-220.14 0,-98.73 -35.09,-183.18 -104.64,-252.73 -69.86,-70.48 -154,-105.57 -253.04,-105.57l-469.46 0 0 591.17zm120.16 4.66l0 -4.66 0 -471.01 349.3 0c65.51,0 121.71,23.29 168.28,69.86 46.26,46.89 69.24,102.77 69.24,168.28 0,65.52 -22.98,121.72 -69.24,168.29 -46.57,46.26 -102.77,69.24 -168.28,69.24l-349.3 0z"/><path d="M17289.04,14195.96 L17289.04,15502.18 L18015.58,15502.18 L18015.58,15382.02 L17408.89,15382.02 L17408.89,14195.96Z"/><path d="M18557.84,15502.18 L18678.93,15502.18 L18678.93,14189.45 L18557.84,14189.45Z"/><path d="M20061.67,14195.96 L20061.67,15284.84 L19411.52,14195.96 L19281.42,14195.96 L19281.42,15502.18 L19401.27,15502.18 L19401.27,14413.3 L20052.67,15502.18 L20181.83,15502.18 L20181.83,14195.96Z"/><path d="M20821.58,14195.96 L20821.58,14787.13 L20698.42,14787.13 L20698.42,14907.29 L20821.58,14907.29 L20821.58,15502.18 L21488.19,15502.18 L21488.19,15382.02 L20941.43,15382.02 L20941.43,14907.29 L21373.62,14907.29 L21373.62,14787.13 L20941.43,14787.13 L20941.43,14316.12 L21488.19,14316.12 L21488.19,14195.96Z"/></symbol><symbol id="mB" viewBox="8180 14160 810 1380"><path d="M8334.67 15502.18l0 -595.83 -122.85 0 0 -120.15 122.85 0 0 -590.24 393.08 0c97.8,0 181.01,34.47 250.25,103.7 69.55,69.87 104.63,153.39 104.63,250.88 0,108.67 -41.6,198.71 -124.81,270.43 62.09,28.88 111.46,72.03 148.41,129.16 37.57,58.69 56.51,122.96 56.51,192.82 0,99.35 -35.08,184.12 -104.63,253.66 -70.49,70.48 -154.63,105.57 -253.05,105.57l-470.39 0zm120.16 -715.98l272.92 0c64.27,0 119.54,-22.98 165.49,-68.93 46.26,-46.26 69.24,-101.84 69.24,-166.73 0,-64.58 -22.98,-119.85 -69.24,-165.49 -45.95,-45.95 -101.22,-68.93 -165.49,-68.93l-272.92 0 0 470.08zm0 595.82l350.23 0c65.51,0 121.71,-23.29 168.28,-69.86 46.27,-46.88 69.24,-103.08 69.24,-169.21 0,-64.89 -22.97,-120.78 -69.24,-167.36 -46.57,-46.26 -102.77,-69.24 -168.28,-69.24l-350.23 0 0 475.67z"/></symbol><symbol id="mO" viewBox="9660 14160 1390 1380"><path d="M10354.38 15515.83c-183.81,0 -340.6,-65.2 -470.38,-195.6 -130.41,-129.79 -195.61,-286.59 -195.61,-470.39 0,-183.5 65.2,-340.6 195.61,-471.01 129.78,-129.78 286.57,-194.67 470.38,-194.67 183.81,0 340.92,64.89 471.01,194.67 129.78,130.41 194.67,287.51 194.67,471.01 0,183.8 -64.89,340.6 -194.67,470.39 -130.09,130.4 -287.2,195.6 -471.01,195.6zm-0.16 -1211.51c-150.27,0 -278.81,53.1 -385.62,159.91 -91.41,91.4 -143.69,198.72 -156.87,321.97l1084.99 0c-13.18,-123.25 -65.47,-230.57 -156.87,-321.97 -106.81,-106.81 -235.35,-159.91 -385.63,-159.91zm-543.23 602.03c11.88,126.49 64.41,236.24 157.61,329.43 106.81,106.5 235.35,159.9 385.62,159.9 150.28,0 278.82,-53.4 385.63,-159.9 93.19,-93.19 145.73,-202.94 157.61,-329.43l-1086.47 0z"/></symbol></svg>
 <div class="intro" id="intro" role="presentation" hidden>
   <svg viewBox="8150 14130 13400 1450" aria-hidden="true"><rect class="rule" x="-20000" y="14787.13" width="62000" height="120.16"/><path class="lt" style="--i:0" d="M8334.67 15502.18l0 -595.83 -122.85 0 0 -120.15 122.85 0 0 -590.24 393.08 0c97.8,0 181.01,34.47 250.25,103.7 69.55,69.87 104.63,153.39 104.63,250.88 0,108.67 -41.6,198.71 -124.81,270.43 62.09,28.88 111.46,72.03 148.41,129.16 37.57,58.69 56.51,122.96 56.51,192.82 0,99.35 -35.08,184.12 -104.63,253.66 -70.49,70.48 -154.63,105.57 -253.05,105.57l-470.39 0zm120.16 -715.98l272.92 0c64.27,0 119.54,-22.98 165.49,-68.93 46.26,-46.26 69.24,-101.84 69.24,-166.73 0,-64.58 -22.98,-119.85 -69.24,-165.49 -45.95,-45.95 -101.22,-68.93 -165.49,-68.93l-272.92 0 0 470.08zm0 595.82l350.23 0c65.51,0 121.71,-23.29 168.28,-69.86 46.27,-46.88 69.24,-103.08 69.24,-169.21 0,-64.89 -22.97,-120.78 -69.24,-167.36 -46.57,-46.26 -102.77,-69.24 -168.28,-69.24l-350.23 0 0 475.67z"/><path class="lt" style="--i:1" d="M10354.38 15515.83c-183.81,0 -340.6,-65.2 -470.38,-195.6 -130.41,-129.79 -195.61,-286.59 -195.61,-470.39 0,-183.5 65.2,-340.6 195.61,-471.01 129.78,-129.78 286.57,-194.67 470.38,-194.67 183.81,0 340.92,64.89 471.01,194.67 129.78,130.41 194.67,287.51 194.67,471.01 0,183.8 -64.89,340.6 -194.67,470.39 -130.09,130.4 -287.2,195.6 -471.01,195.6zm-0.16 -1211.51c-150.27,0 -278.81,53.1 -385.62,159.91 -91.41,91.4 -143.69,198.72 -156.87,321.97l1084.99 0c-13.18,-123.25 -65.47,-230.57 -156.87,-321.97 -106.81,-106.81 -235.35,-159.91 -385.63,-159.91zm-543.23 602.03c11.88,126.49 64.41,236.24 157.61,329.43 106.81,106.5 235.35,159.9 385.62,159.9 150.28,0 278.82,-53.4 385.63,-159.9 93.19,-93.19 145.73,-202.94 157.61,-329.43l-1086.47 0z"/><path class="lt" style="--i:2" d="M11606.87 14786.2l-122.85 0 0 120.15 122.85 0 0 594.9 120.16 0 0 -589.31 312.97 0 306.45 590.24 134.75 0 -312.04 -602.34c77,-20.5 140.03,-62.41 189.09,-125.44 50.61,-64.89 75.76,-138.17 75.76,-220.14 0,-98.73 -35.09,-183.18 -104.64,-252.73 -69.86,-70.48 -154,-105.57 -253.05,-105.57l-469.45 0 0 590.24zm120.16 5.59l0 -5.59 0 -470.08 349.29 0c65.52,0 121.71,23.29 168.29,69.86 46.26,46.89 69.24,102.77 69.24,168.28 0,65.52 -22.98,121.72 -69.24,168.29 -46.58,46.26 -102.77,69.24 -168.29,69.24l-349.29 0z"/><path class="lt" style="--i:3" d="M13038.98 14789l-123.78 0 0 120.15 123.78 0 0 593.03 321.04 0c180.08,0 334.08,-63.96 462.01,-191.88 127.61,-127.3 191.26,-280.99 191.26,-461.38 0,-180.08 -63.65,-333.78 -191.26,-461.08 -127.93,-127.91 -281.93,-191.88 -462.01,-191.88l-321.04 0 0 593.04zm119.23 120.15l0 -120.15 0 -473.81 201.81 0c147.48,0 273.23,52.16 377.55,156.48 104.33,104.33 156.49,230.08 156.49,377.25 0,147.48 -52.16,273.22 -156.49,377.55 -104.32,104.32 -230.07,156.48 -377.55,156.48l-201.81 0 0 -473.8z"/><path class="lt" style="--i:4" d="M14600.87,14195.96 L14600.87,14787.13 L14477.71,14787.13 L14477.71,14907.29 L14600.87,14907.29 L14600.87,15502.18 L15267.48,15502.18 L15267.48,15382.02 L14720.72,15382.02 L14720.72,14907.29 L15152.92,14907.29 L15152.92,14787.13 L14720.72,14787.13 L14720.72,14316.12 L15267.48,14316.12 L15267.48,14195.96Z"/><path class="lt" style="--i:5" d="M15854.14 14787.13l-122.85 0 0 120.16 122.85 0 0 593.96 120.16 0 0 -589.31 312.97 0 306.45 590.24 134.75 0 -312.04 -602.34c77,-20.5 140.03,-62.41 189.09,-125.44 50.61,-64.89 75.76,-138.17 75.76,-220.14 0,-98.73 -35.09,-183.18 -104.64,-252.73 -69.86,-70.48 -154,-105.57 -253.04,-105.57l-469.46 0 0 591.17zm120.16 4.66l0 -4.66 0 -471.01 349.3 0c65.51,0 121.71,23.29 168.28,69.86 46.26,46.89 69.24,102.77 69.24,168.28 0,65.52 -22.98,121.72 -69.24,168.29 -46.57,46.26 -102.77,69.24 -168.28,69.24l-349.3 0z"/><path class="lt" style="--i:6" d="M17289.04,14195.96 L17289.04,15502.18 L18015.58,15502.18 L18015.58,15382.02 L17408.89,15382.02 L17408.89,14195.96Z"/><path class="lt" style="--i:7" d="M18557.84,15502.18 L18678.93,15502.18 L18678.93,14189.45 L18557.84,14189.45Z"/><path class="lt" style="--i:8" d="M20061.67,14195.96 L20061.67,15284.84 L19411.52,14195.96 L19281.42,14195.96 L19281.42,15502.18 L19401.27,15502.18 L19401.27,14413.3 L20052.67,15502.18 L20181.83,15502.18 L20181.83,14195.96Z"/><path class="lt" style="--i:9" d="M20821.58,14195.96 L20821.58,14787.13 L20698.42,14787.13 L20698.42,14907.29 L20821.58,14907.29 L20821.58,15502.18 L21488.19,15502.18 L21488.19,15382.02 L20941.43,15382.02 L20941.43,14907.29 L21373.62,14907.29 L21373.62,14787.13 L20941.43,14787.13 L20941.43,14316.12 L21488.19,14316.12 L21488.19,14195.96Z"/></svg>
-  <p class="tag">The line between what is drawn and what is built</p>
+  <p class="tag">Between vision and reality</p>
   <button class="skip" id="skip" type="button">Skip</button>
 </div>
 
@@ -320,15 +322,15 @@ body.intro-on .brand svg { visibility: hidden; }
       <section class="panel p-open" id="open" aria-label="Opening">
         <img src="img/hero/hero-poster.webp?v=2" alt="Pool deck at sunset, from the studio showreel">
         <video class="hero-vid" id="heroVid" muted loop playsinline preload="none" aria-hidden="true"></video>
-        <div class="cap"><h1 class="say"><strong>Clarity</strong> through visualization</h1></div>
+        <div class="cap"><h1 class="say">Experience your <strong>vision</strong></h1></div>
         <span class="under" aria-hidden="true"></span>
-        <p class="sub">Architectural visualization studio · Bekasi, Indonesia</p>
+        <p class="sub">Architectural visualization with clarity, atmosphere, and purpose</p>
       </section>
 
       <section class="panel p-about" id="about" aria-labelledby="l-about">
         <p class="label pin" id="l-about">About</p>
-        <p class="say txt">Before a building stands, it lives in drawings. We give it <strong>light and depth</strong>, so everyone can see it <strong>clearly</strong>, and see the <strong>same place</strong></p>
-        <p class="meaning"><strong>Borderline:</strong> the line between what is drawn and what is built</p>
+        <div class="txt"><p class="say">Every project carries more than drawings: a purpose, an aspiration, and a <strong>sense of place</strong></p><p class="support">Through light, atmosphere, and detail, we bring these qualities into focus, making the design clear and its potential easy to imagine.</p></div>
+        <p class="meaning"><strong>Borderline:</strong> the line between vision and reality</p>
         <div class="pair">
         <figure class="clay" id="clay">
           <img src="img/work/full/residential-17.webp" alt="Placeholder render, final">
@@ -344,7 +346,7 @@ body.intro-on .brand svg { visibility: hidden; }
         <p class="label pin" id="l-approach">Approach</p>
         <figure><img src="img/work/full/interior-21.webp" alt="Placeholder render" loading="lazy"></figure>
         <div class="txt">
-          <p class="say">We begin with the <strong>architecture</strong>, not the image. Each view is made to bring <strong>one decision into focus</strong></p>
+          <p class="say">We begin with the architecture, not the image</p><p class="support">Guided by design intent, we carefully shape each perspective to reveal what matters most, creating imagery that stays <strong>true to the design</strong> and communicates with clarity and purpose.</p>
         </div>
       </section>
 
@@ -357,7 +359,7 @@ body.intro-on .brand svg { visibility: hidden; }
         </div>
         <div class="names"><span>Still images</span><span>360° virtual tours</span><span>Animation</span></div>
         <div class="txt">
-          <p class="say">Still images, 360° tours and animation, for <strong>reviews, approvals and launches</strong></p>
+          <p class="say">To reveal the design, explore the space, and tell the story behind each project</p>
         </div>
       </section>
 
@@ -383,12 +385,12 @@ body.intro-on .brand svg { visibility: hidden; }
           <li><!-- Placeholder: replace with the official THaT logo --><svg viewBox="0 0 120 50" role="img" aria-label="THaT"><text x="0" y="46" font-family="Inter Tight, Arial, sans-serif" font-weight="600" font-size="52" fill="#1A1816" letter-spacing="-2">TH</text><text x="74" y="22" font-family="Inter Tight, Arial, sans-serif" font-weight="600" font-size="24" fill="#1A1816">aT</text></svg></li>
           <li><img src="img/logo-pdo.png" alt="Progressive Design Office Architecture" loading="lazy"></li>
         </ul>
-        <div class="txt"><p class="say" id="l-clients">Trusted by <strong>architects and developers</strong> across Indonesia</p></div>
+        <div class="txt"><p class="say" id="l-clients">Trusted by <strong>architects and developers</strong></p></div>
       </section>
 
       <section class="panel p-contact" id="contact" aria-labelledby="l-contact">
         <p class="label pin">Contact</p>
-        <h2 class="say invite" id="l-contact"><span class="ln">Show us your project</span> <span class="ln">We will help everyone <strong>see it clearly</strong></span></h2>
+        <h2 class="say invite" id="l-contact"><span class="ln">Show us your project</span> <span class="ln">Let’s bring your <strong>vision into focus</strong></span></h2>
         <!-- Placeholders: replace with real contact details -->
         <div class="write">
           <div class="big"><span>Write to us</span><b>hello@example.com</b></div>
@@ -581,6 +583,5 @@ body.intro-on .brand svg { visibility: hidden; }
   });
 })();
 </script>
-
 </body>
 </html>
