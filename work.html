@@ -42,7 +42,7 @@ p, h1 { margin: 0; }
 .topnav { display: flex; align-items: center; gap: clamp(16px, 2.2vw, 32px); }
 .topnav a { font-weight: 300; font-size: 14px; text-decoration: none; }
 .topnav a:hover, .topnav a[aria-current] { text-decoration: underline; text-underline-offset: 5px; }
-.tlink { font-weight: 400; font-size: 15px; text-decoration: none !important; border-bottom: 1px solid currentColor; padding-bottom: 3px; }
+.tlink { font-weight: 400; font-size: 15px; text-decoration: none !important; border-bottom: 1px solid currentColor; padding-bottom: 3px; white-space: nowrap; }
 
 .head { padding: 28px var(--gr) 12px var(--gl); margin: 0 max(0px, calc(28px - var(--gl))); }
 .head h1 { font-weight: 200; font-size: clamp(28px, 3vw, 44px); letter-spacing: -0.015em; line-height: 1.1; }
@@ -105,6 +105,9 @@ p, h1 { margin: 0; }
   .lb .nav { width: 22%; }
 }
 @media (prefers-reduced-motion: reduce) { .tile img { transition: none; } .tile:hover img { transform: none; } }
+
+/* Narrow phones: keep the longer CTA on one line */
+@media (max-width: 360px) { .brand { width: 104px; } .topbar .tlink { font-size: 14px; } }
 </style>
 </head>
 <body>
@@ -117,7 +120,7 @@ p, h1 { margin: 0; }
       <a href="./#about">About</a>
       <a href="./#services">Services</a>
       <a href="work.html" aria-current="page">Work</a>
-      <a class="tlink" href="./#contact">Begin a brief</a>
+      <a class="tlink" href="./#contact">Discuss your project</a>
     </nav>
   </div>
 </header>
@@ -139,7 +142,7 @@ p, h1 { margin: 0; }
     <p>Show us your project</p>
     <span class="line" aria-hidden="true"></span>
     <svg aria-hidden="true"><use href="#mO"/></svg>
-    <a class="tlink" href="./#contact">Begin a brief</a>
+    <a class="tlink" href="./#contact">Discuss your project</a>
   </div>
 </main>
 <footer class="foot"><span>© 2026 Borderline Visualization · Bekasi, Indonesia</span><span>Placeholder images</span></footer>

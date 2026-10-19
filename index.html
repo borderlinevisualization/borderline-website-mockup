@@ -60,6 +60,9 @@ p, h1, h2, figure { margin: 0; }
 .topnav a { font-weight: 300; font-size: 14px; text-decoration: none; }
 .topnav a:hover { text-decoration: underline; text-underline-offset: 5px; }
 .topnav .tlink { font-size: 15px; font-weight: 400; }
+/* Narrow phones: keep the longer CTA on one line */
+@media (max-width: 360px) { .topbar .brand { width: 104px; } .topbar .tlink { font-size: 14px; } }
+
 .where { font-size: 13px; font-weight: 300; color: var(--muted); }
 .cue { display: inline-flex; align-items: center; gap: 12px; font-weight: 300; font-size: 15px; text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 3px; transition: opacity .3s; }
 .cue svg { width: 22px; height: 10px; }
@@ -312,7 +315,7 @@ body.intro-on .brand svg { visibility: hidden; }
       <a href="#about" data-go="about">About</a>
       <a href="#services" data-go="services">Services</a>
       <a href="work.html">Work</a>
-      <a class="tlink" href="#contact" data-go="contact">Begin a brief</a>
+      <a class="tlink" href="#contact" data-go="contact">Discuss your project</a>
     </nav>
   </div>
 </header>
@@ -380,7 +383,7 @@ body.intro-on .brand svg { visibility: hidden; }
       </section>
 
       <section class="panel p-clients" id="clients" aria-labelledby="l-clients">
-        <p class="label pin">Clients</p>
+        <p class="label pin">Clients &amp; Collaborators</p>
         <ul class="logos">
           <li><img src="img/logo-ciputra.png" alt="Ciputra" loading="lazy"></li>
           <li><img src="img/logo-jaya.png" alt="Jaya Ancol" loading="lazy"></li>
@@ -404,7 +407,7 @@ body.intro-on .brand svg { visibility: hidden; }
         </div>
         <form id="contactForm" novalidate>
           <fieldset>
-            <legend>What do you need?</legend>
+            <legend>What are you looking for?</legend>
             <div class="chips">
               <input type="checkbox" id="s-still"><label for="s-still">Still images</label>
               <input type="checkbox" id="s-360"><label for="s-360">360° virtual tour</label>
@@ -415,8 +418,8 @@ body.intro-on .brand svg { visibility: hidden; }
           <div class="field"><label for="f-name">Name</label><input id="f-name" required autocomplete="name"></div>
           <div class="field"><label for="f-company">Company</label><input id="f-company" autocomplete="organization"></div>
           <div class="field full"><label for="f-email">Email</label><input id="f-email" type="email" required autocomplete="email"></div>
-          <div class="field full"><label for="f-msg">About the project</label><textarea id="f-msg" required placeholder="Type, location, number of views, deadline"></textarea></div>
-          <div class="send"><button type="submit">Send the brief</button><p class="status" id="formStatus" role="status"></p></div>
+          <div class="field full"><label for="f-msg">Tell us about your project</label><textarea id="f-msg" required placeholder="Project type, location, scope, and timeline"></textarea></div>
+          <div class="send"><button type="submit">Send your project brief</button><p class="status" id="formStatus" role="status"></p></div>
         </form>
         <div class="legal"><span>© 2026 Borderline Visualization · Bekasi, Indonesia</span><a href="https://www.instagram.com/borderline.viz/" target="_blank" rel="noopener">Instagram</a></div>
       </section>
@@ -454,7 +457,7 @@ body.intro-on .brand svg { visibility: hidden; }
   const open = document.getElementById('open'), contact = document.getElementById('contact');
   const narrow = matchMedia('(max-width: 900px)');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const names = { open: 'Opening', about: 'About', approach: 'Approach', services: 'Services', work: 'Work', clients: 'Clients', contact: 'Contact' };
+  const names = { open: 'Opening', about: 'About', approach: 'Approach', services: 'Services', work: 'Work', clients: 'Clients & Collaborators', contact: 'Contact' };
   let maxX = 0, aStart = 0, aEnd = 0, bEnd = 0;
   const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 
