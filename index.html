@@ -593,7 +593,8 @@ body.intro-on .brand svg { visibility: hidden; }
   /* 360 tour and film popups */
   const MEDIA = {
     tour: { url: 'https://borderlinevisualization.github.io/L5Achillea_360VirtualTour/', kind: 'frame' },
-    film: { url: '', kind: 'video' }   /* add the animation link here (Vimeo or YouTube embed URL, or an .mp4 file) */
+    /* Self-hosted showreel: 720p on phones, 1080p elsewhere */
+    film: { url: matchMedia('(max-width: 900px)').matches ? 'img/film/film-720.mp4?v=1' : 'img/film/film-1080.mp4?v=1', kind: 'video', poster: 'img/film/film-poster.webp?v=1' }
   };
   const pop = document.getElementById('pop'), stage = document.getElementById('popStage'), ext = document.getElementById('popExt');
   let popFrom = null, popT = 0;
@@ -603,7 +604,7 @@ body.intro-on .brand svg { visibility: hidden; }
     if (!m.url) {
       stage.innerHTML = '<div class="pop-note">The film will be added soon</div>'; ext.hidden = true;
     } else if (m.kind === 'video' && /\.mp4($|\?)/i.test(m.url)) {
-      const v = document.createElement('video'); v.src = m.url; v.controls = true; v.autoplay = true; v.playsInline = true; stage.appendChild(v); ext.hidden = false; ext.href = m.url;
+      const v = document.createElement('video'); v.src = m.url; if (m.poster) v.poster = m.poster; v.preload = 'auto'; v.controls = true; v.autoplay = true; v.playsInline = true; stage.appendChild(v); ext.hidden = false; ext.href = m.url;
     } else {
       const f = document.createElement('iframe'); f.src = m.url; f.allow = 'fullscreen; autoplay; gyroscope; accelerometer; xr-spatial-tracking'; f.allowFullscreen = true; f.title = key === 'tour' ? '360° virtual tour' : 'Animation';
       stage.appendChild(f); ext.hidden = false; ext.href = m.url;
