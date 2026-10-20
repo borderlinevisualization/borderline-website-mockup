@@ -150,7 +150,10 @@ p, h1, h2, figure { margin: 0; }
 .invite .ln { display: block; white-space: nowrap; }
 @media (max-width: 900px) { .invite .ln { white-space: normal; } }
 .p-contact .invite { position: absolute; left: 6vw; bottom: calc(var(--stand) + 28px); width: 44vw; }
-.p-contact .write { position: absolute; left: 6vw; top: calc(var(--ly) + 32px); display: flex; gap: 4vw; flex-wrap: wrap; }
+.p-contact .write { position: absolute; left: 6vw; top: calc(var(--ly) + 32px); display: flex; align-items: center; column-gap: 40px; row-gap: 14px; flex-wrap: wrap; }
+.write-label { flex-basis: 100%; font-size: 13px; color: var(--on-char-muted); }
+.copied { font-size: 13px; color: var(--on-char-muted); opacity: 0; transition: opacity .3s ease; }
+.copied.on { opacity: 1; }
 .big { display: grid; gap: 4px; }
 .big span { font-size: 13px; color: var(--on-char-muted); }
 .big b { font-weight: 200; font-size: clamp(20px, 1.8vw, 30px); overflow-wrap: anywhere; }
@@ -405,8 +408,9 @@ body.intro-on .brand svg { visibility: hidden; }
         <p class="label pin">Contact</p>
         <h2 class="say invite" id="l-contact"><span class="ln">Show us your project</span> <span class="ln">Let’s bring your <strong>vision into focus</strong></span></h2>
         <div class="write">
-          <div class="big"><span>Write to us</span><b><a href="mailto:hello.this.is.borderline@gmail.com">hello.this.is.borderline@gmail.com</a></b></div>
+          <span class="write-label">Write to us</span><a class="chat" id="mailLink" href="mailto:hello.this.is.borderline@gmail.com?subject=Project%20inquiry%20%E2%80%94%20Borderline%20Visualization" aria-label="Email Borderline Visualization"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><rect x="2.75" y="5.25" width="18.5" height="13.5" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></svg><span>Email</span></a>
           <a class="chat" href="https://wa.me/6281391654607" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.2-.3-.2-.5-.3Z"/></svg><span>WhatsApp</span></a>
+          <span class="copied" id="copied" role="status" aria-live="polite"></span>
         </div>
         <form id="contactForm" novalidate>
           <fieldset>
@@ -588,6 +592,16 @@ body.intro-on .brand svg { visibility: hidden; }
   document.getElementById('popX').addEventListener('click', closeMedia);
   addEventListener('keydown', e => { if (e.key === 'Escape' && !pop.hidden) closeMedia(); });
 
+  // Email icon: opens the visitor's mail app; also copies the address in case no mail app is set up (common on desktop).
+  const mailLink = document.getElementById('mailLink'), copied = document.getElementById('copied');
+  mailLink.addEventListener('click', () => {
+    const addr = decodeURIComponent(mailLink.href.slice(7).split('?')[0]);
+    if (!navigator.clipboard) return;
+    navigator.clipboard.writeText(addr).then(() => {
+      copied.textContent = 'Email address copied'; copied.classList.add('on');
+      clearTimeout(copied._t); copied._t = setTimeout(() => copied.classList.remove('on'), 4000);
+    }).catch(() => {});
+  });
   const form = document.getElementById('contactForm'), status = document.getElementById('formStatus');
   // Brief form → Google Apps Script web app (writes to the studio's Google Sheet and emails a notification).
   // Paste the web app URL (ends in /exec) below. Empty = preview mode, nothing is sent.
