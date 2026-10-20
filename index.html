@@ -97,7 +97,7 @@ p, h1, h2, figure { margin: 0; }
 .p-about .txt { position: absolute; left: 6vw; bottom: calc(var(--stand) + 28px); width: min(30ch, 30vw); }
 .clay { position: absolute; left: 0; bottom: var(--stand); height: 54%; aspect-ratio: 4 / 5; }
 .clay img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.clay .c { filter: grayscale(1) brightness(1.18) contrast(.72); }
+.clay img { object-position: 56% 50%; }
 .clay figcaption { position: absolute; right: 0; top: calc(100% + 14px); }
 .p-about .hang { position: absolute; top: var(--ly); width: 22vw; aspect-ratio: 3 / 2; }
 .p-about .hang img, .p-approach figure img, .standing img, .film img { width: 100%; height: 100%; object-fit: cover; }
@@ -361,9 +361,9 @@ body.intro-on .brand svg { visibility: hidden; }
         <p class="meaning"><strong>Borderline:</strong> the line between vision and reality</p>
         <div class="pair">
         <figure class="clay" id="clay">
-          <img src="img/work/full/residential-17.webp" alt="Placeholder render, final">
-          <img class="c" src="img/work/full/residential-17.webp" alt="" aria-hidden="true">
-          <figcaption class="note">Clay view to final render (simulated)</figcaption>
+          <img src="img/home/clay-final.webp" alt="Aerial render of a lakeside mixed-use district, final">
+          <img class="c" src="img/home/clay-base.webp" alt="" aria-hidden="true">
+          <figcaption class="note">Clay view to final render</figcaption>
         </figure>
         <figure class="hang"><img src="img/work/full/interior-02.webp" alt="Placeholder render" loading="lazy"></figure>
         </div>
@@ -382,7 +382,7 @@ body.intro-on .brand svg { visibility: hidden; }
         <p class="label pin" id="l-services">Services</p>
         <div class="skyline">
           <figure class="standing s1"><img src="img/work/full/commercial-27.webp" alt="Placeholder render for still images" loading="lazy"></figure>
-          <figure class="standing s2"><button class="media" type="button" data-media="tour" aria-label="Open the 360° virtual tour"><img src="img/work/full/interior-14.webp" alt="" loading="lazy"><span class="cue-tag">View tour</span></button></figure>
+          <figure class="standing s2"><button class="media" type="button" data-media="tour" aria-label="Open the 360° virtual tour"><img src="img/home/tour-thumb.webp" alt="" loading="lazy"><span class="cue-tag">View tour</span></button></figure>
           <figure class="standing s3"><button class="media" type="button" data-media="film" aria-label="Play the animation"><img src="img/work/full/masterplan-05.webp" alt="" loading="lazy"><span class="cue-tag">Play film</span></button></figure>
         </div>
         <div class="names"><span>Still images</span><span>360° virtual tours</span><span>Animation</span></div>
