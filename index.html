@@ -591,7 +591,7 @@ body.intro-on .brand svg { visibility: hidden; }
   const form = document.getElementById('contactForm'), status = document.getElementById('formStatus');
   // Brief form → Google Apps Script web app (writes to the studio's Google Sheet and emails a notification).
   // Paste the web app URL (ends in /exec) below. Empty = preview mode, nothing is sent.
-  const FORM_ENDPOINT = '';
+  const FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwzaQWUTW3yl3NLq75BxMTSadldWAsu3SuTxKSVL14poUB-nbLGdn6W1GBa1P7XoJvA/exec';
   const opened = Date.now();
   const btn = form.querySelector('.send button'), btnText = btn.textContent;
   const v = id => document.getElementById(id).value.trim();
