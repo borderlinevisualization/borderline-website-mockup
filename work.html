@@ -203,14 +203,14 @@ p, h1 { margin: 0; }
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* Balanced justified rows: every row ends flush on both sides, and row heights stay as close to the target as possible.
-     Wide renders (about 2:1 and wider) take a row alone on desktop. */
-  function partition(items, W, gap, target) {
+     On desktop every row holds at least two renders, so no image stands alone (and gets blown up). */
+  function partition(items, W, gap, target, minPer = 1) {
     const n = items.length, best = new Array(n + 1).fill(Infinity), cut = new Array(n + 1).fill(0);
     best[0] = 0;
     for (let j = 1; j <= n; j++) {
       let sum = 0;
-      for (let i = j - 1; i >= 0 && j - i <= 6; i--) {
-        sum += ar(items[i]);
+      for (let i = j - 1 - (minPer - 1); i >= 0 && j - i <= 6; i--) {
+        if (i === j - minPer) { sum = 0; for (let t = i; t < j; t++) sum += ar(items[t]); } else sum += ar(items[i]);
         const h = (W - gap * (j - i - 1)) / sum;
         const d = (h - target) / target;
         const cost = best[i] + d * d * (h > target ? 1.6 : 1);   /* rows taller than target cost a little more */
@@ -233,10 +233,9 @@ p, h1 { margin: 0; }
 
     /* split into blocks around wide renders, then balance each block */
     const rows = []; let block = [];
-    const flushBlock = () => { if (block.length) rows.push(...partition(block, W, gap, target)); block = []; };
+    const flushBlock = () => { if (block.length) rows.push(...partition(block, W, gap, target, narrow || block.length < 2 ? 1 : 2)); block = []; };
     for (const w of shown) {
-      if (!narrow && ar(w) >= 1.95) { flushBlock(); rows.push([w]); }
-      else block.push(w);
+      block.push(w);
     }
     flushBlock();
 
@@ -257,7 +256,7 @@ p, h1 { margin: 0; }
         b.className = 'tile'; b.type = 'button';
         b.style.width = wd + 'px'; b.style.height = Math.round(h) + 'px';
         b.setAttribute('aria-label', 'Open image ' + (i + 1));
-        b.innerHTML = `<img src="${w.src}" alt="${ALT[w.cat] || 'Architectural visualization'}" loading="${i < 8 ? 'eager' : 'lazy'}" width="${w.w}" height="${w.h}">`;
+        b.innerHTML = `<img src="${w.src}" srcset="${w.src} 1000w, ${w.full} 2000w" sizes="${wd}px" alt="${ALT[w.cat] || 'Architectural visualization'}" loading="${i < 8 ? 'eager' : 'lazy'}" width="${w.w}" height="${w.h}">`;
         b.addEventListener('click', () => open(i));
         el.appendChild(b);
       });
